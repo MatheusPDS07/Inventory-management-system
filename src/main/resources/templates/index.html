@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tela de login</title>
+	<link href="../static/styles/css_index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="layout">
+		<div class="title"><h1>LOGIN</h1></div>
+	<!--form action="/sendData"-->
+		<br><br>
+		<input type="text" id="login" name="username" placeholder="Nome">
+		<br><br>
+		<input type="password" id="password"  name="password" placeholder="Senha">
+		<br><br>
+		<button type="submit" onclick="sendData()">Enviar</button>
+	<!--/form-->
+</div>
+</body>
+
+<script>
+	function sendData() {
+        const string1 = document.getElementById("login").value;
+        const string2 = document.getElementById("password").value;
+
+        const data = {
+          string1,
+          string2
+        };
+
+        fetch("/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Erro ao enviar dados");
+            }
+            return response.text();
+          })
+          .then(message => {
+            alert(message);
+          })
+          .catch(error => {
+            alert(error.message);
+          });
+      }
+</script>
+
+</html>

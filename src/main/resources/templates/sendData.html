@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Firebase CRUD</title>
+  <link href="../static/styles/css_sendData.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="navigation">
+    <ul>
+      <li class="list active">
+        <div class="div-12">
+          <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+          <span class="text">Home</span>
+        </div>
+      </li>
+
+      <li class="list">
+        <div class="div-22">
+          <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+          <span class="text">Profile</span>
+        </div>
+      </li>
+
+      <li class="list">
+        <div class="div-32">
+          <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
+          <span class="text">Message</span>
+        </div>
+      </li>
+
+      <li class="list">
+        <div class="div-42">
+          <span class="icon"><ion-icon name="camera-outline"></ion-icon></span>
+          <span class="text">Photos</span>
+        </div>
+      </li>
+
+      <li class="list">
+        <div class="div-52">
+          <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+          <span class="text">Settings</span>
+        </div>
+      </li>
+    <div class="indicator"></div>
+    </ul>
+  </div>
+
+  <button id="create" type="submit">Enviar</button>
+  <button id="edit" type="submit">Editar</button>
+  <button id="delete" type="submit">Deletar</button>
+  <button id="download" type="submit">Download</button>
+
+<div class="div-0" id="div-5">
+  <p>ola, nada por enquanto</p>
+</div>
+
+<div class="div-0" id="div-2">
+  <p>ola, nada por enquanto</p>
+</div>
+
+<div class="div-0" id="div-3">
+  <p>ola, nada por enquanto</p>
+</div>
+
+<div class="div-0" id="div-4">
+  <p>ola, nada por enquanto</p>
+</div>
+
+  <div class="div-0" id="div-1">
+
+    <div id="div_create" style="display: none;">
+      <input type="text" id="string1" placeholder="string1">
+      <br><br>
+      <input type="text" id="string2" placeholder="string2">
+      <br><br>
+      <button onclick="sendData()">Enviar Dados</button>
+      <button class="btn_cancel-1">Cancelar</button>
+    </div>
+
+    <div id="div_edit" style="display: none;">
+      <input type="text" id="string12" placeholder="string12">
+      <br><br>
+      <input type="text" id="string22" placeholder="string22">
+      <br><br>
+      <button onclick="updateData()">Atualizar Dados</button>
+      <button class="btn_cancel-2">Cancelar</button>
+    </div>
+
+    <div id="div_delete" style="display: none;">
+      <input type="text" id="id" placeholder="ID">
+      <br><br>
+      <button onclick="deleteData()">Excluir Dados</button>
+      <button class="btn_cancel-3">Cancelar</button>
+    </div>
+
+    <div id="div_list" style="display: block;"><p>aqui vai a lista</p></div>
+  </div>
+
+
+  <script type="text/javascript" src="../static/scripts/script_function_sendData.js"></script>
+  <script type="text/javascript" src="../static/scripts/script_style_sendData.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
