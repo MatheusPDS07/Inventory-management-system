@@ -43,6 +43,12 @@ dependencies {
 	implementation 'com.google.auth:google-auth-library-oauth2-http:1.12.1'
 
 	implementation 'com.google.firebase:firebase-admin:8.0.0'
+
+	//implementation 'com.google.firebase:firebase-auth:21.0.1'
+
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
+	implementation 'com.google.auth:google-auth-library-oauth2-http:1.12.1'
+
 }
 
 tasks.named('test') {

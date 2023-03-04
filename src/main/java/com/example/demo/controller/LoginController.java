@@ -11,7 +11,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class LoginController {
-
     @PostMapping
     public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) {
         System.out.println(" OLHA OS DADOS :"+data.get("string1"));
