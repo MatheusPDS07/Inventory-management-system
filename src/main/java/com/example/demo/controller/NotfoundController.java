@@ -21,6 +21,9 @@ public class NotfoundController implements ErrorController {
         else if (response.getStatus() == HttpStatus.FORBIDDEN.value()) {
             modelAndView.setViewName("error-403");
         }
+        else if (response.getStatus() == HttpStatus.FORBIDDEN.value()) {
+            modelAndView.setViewName("error-405");
+        }
         else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
             modelAndView.setViewName("error-500");
         }
