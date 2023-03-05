@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,12 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/")
 public class LoginController {
+
+    //teste de recebimento de dados
     /*@PostMapping
     public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) {
         System.out.println(" OLHA OS DADOS :"+data.get("string1"));
@@ -22,8 +24,8 @@ public class LoginController {
         return ResponseEntity.ok("Dados enviados com sucesso!"+String.valueOf(data.get("string1")));
     }*/
 
-    @PostMapping//("/")
-    public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) {
+    @PostMapping
+    public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) throws IOException {
         String email = data.get("string1");
         String password = data.get("string2");
 
@@ -45,15 +47,10 @@ public class LoginController {
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            String responseBody = response.getBody();
-            // Extrair o token de acesso do corpo da resposta e usá-lo para autenticar o usuário
-            //return ResponseEntity.ok(responseBody);
-            return ResponseEntity.ok("deu certo");
+            return ResponseEntity.ok("Autenticação bem-sucedida");
         } else {
             // Manipular erros de forma adequada
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao autenticar usuário");
         }
     }
-
-
 }
