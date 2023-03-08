@@ -6,49 +6,66 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tela de login</title>
 	<link href="../static/styles/css_index.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.jsdelivr.net/npm/validator@13.6.0"></script>
 </head>
 <body>
 <div class="layout">
-		<div class="title"><h1>LOGIN</h1></div>
-		<br><br>
-		<input type="text" id="login" name="username" placeholder="Nome">
-		<br><br>
-		<input type="password" id="password"  name="password" placeholder="Senha">
-		<br><br>
-		<button type="submit" onclick="sendData()">Enviar</button>
+	<div class="title"><h1>LOGIN</h1></div>
+	<br><br>
+	<input type="email" id="email" name="username" placeholder="Nome">
+	<br><br>
+	<input type="password" id="password"  name="password" placeholder="Senha">
+	<br><br>
+	<a id="link" href="/sendData">Enviar</a>
 </div>
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.6.0/validator.min.js" integrity="sha512-jcTtjLsKt0wVH8UG0hYgV7TWW9+iaJ07Z+W2TGrNXOjJ0dQ1syS+SO+B8KjrpHX0Y3nmq3lu+ZfjKgx81vp4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/validator@13.6.0/validator.min.js"></script>
 <script>
-	function sendData() {
-        const string1 = document.getElementById("login").value;
-        const string2 = document.getElementById("password").value;
+const link = document.getElementById('link');
 
-        const data = {
-          string1,
-          string2
-        };
+link.addEventListener('click', function(event) {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-        fetch("/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error("Erro ao enviar dados");
-            }
-            return response.text();
-          })
-          .then(message => {
-            alert(message);
-          })
-          .catch(error => {
-            alert(error.message);
-          });
-      }
+    if (!email || !password) {
+        event.preventDefault();
+        alert('Por favor, preencha todos os campos!');
+    } else {
+        if (validator.isEmail(email)) {
+            const data = {
+                string1: email,
+                string2: password
+            };
+
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao enviar dados");
+                }
+                return response.text();
+            })
+            .then(message => {
+                alert(message);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+        } else {
+            event.preventDefault();
+            alert('Por favor, preencha com um email válido!');
+        }
+    }
+});
+
+
 </script>
 
 </html>

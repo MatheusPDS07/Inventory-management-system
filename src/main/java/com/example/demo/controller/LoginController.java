@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.objects.UserCredentials;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,18 +12,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @RestController
 @RequestMapping("/")
 public class LoginController {
-
-    //teste de recebimento de dados
-    /*@PostMapping
-    public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) {
-        System.out.println(" OLHA OS DADOS :"+data.get("string1"));
-        System.out.println(" OLHA OS DADOS :"+data.get("string2"));
-        return ResponseEntity.ok("Dados enviados com sucesso!"+String.valueOf(data.get("string1")));
-    }*/
 
     @PostMapping
     public ResponseEntity<String> sendData(@RequestBody Map<String, String> data) throws IOException {
@@ -46,11 +45,20 @@ public class LoginController {
 
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, String.class);
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return ResponseEntity.ok("Autenticação bem-sucedida");
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        UserCredentials userCredentials = new UserCredentials();
+        userCredentials.setEmail(email);
+        userCredentials.setPassword(password);
+
+        Set<ConstraintViolation<UserCredentials>> violations = validator.validate(userCredentials);
+        if (response.getStatusCode() == HttpStatus.OK && violations.isEmpty()) {
+
+            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/sendData").build();
         } else {
             // Manipular erros de forma adequada
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao autenticar usuário");
+            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/error").build();
         }
     }
 }
